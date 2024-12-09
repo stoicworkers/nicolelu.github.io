@@ -1,38 +1,64 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Typing effect for main title
+    // Typing effect configuration
     const mainTitle = document.getElementById("main-title");
-    const titlePhrases = ["Stoic AI", "Stoic Agents", "Stoic Workers", "Stoic Consultants", "Stoic"];
-    let phraseIndex = 0;
+    const baseWord = "Stoic";
+    const variations = ["AI", "Agents", "Workers", "Consultants"];
+    let variationIndex = 0;
     let charIndex = 0;
-    let deleting = false;
-    let currentPhrase = titlePhrases[phraseIndex];
+    let isDeleting = false;
+    let currentVariation = "";
 
+    // We'll first type out "Stoic" and then proceed to type the variations.
     function typeTitle() {
-        if (!deleting && charIndex <= currentPhrase.length) {
-            mainTitle.textContent = currentPhrase.slice(0, charIndex++);
+        // If we haven't typed baseWord fully yet
+        if (charIndex < baseWord.length) {
+            mainTitle.textContent = baseWord.slice(0, charIndex + 1);
+            charIndex++;
             setTimeout(typeTitle, 100);
-        } else if (deleting && charIndex >= 0) {
-            mainTitle.textContent = currentPhrase.slice(0, charIndex--);
-            setTimeout(typeTitle, 50);
         } else {
-            if (!deleting) {
-                // Finished typing, pause before deleting
-                if (phraseIndex < titlePhrases.length - 1) {
-                    setTimeout(() => { deleting = true; typeTitle(); }, 1000);
-                } else {
-                    // Last phrase "Stoic" stay
-                }
-            } else {
-                // Finished deleting, move to next phrase
-                deleting = false;
-                phraseIndex++;
-                if (phraseIndex < titlePhrases.length) {
-                    currentPhrase = titlePhrases[phraseIndex];
-                    setTimeout(typeTitle, 200);
-                }
-            }
+            // Once "Stoic" is fully typed, move on to variations.
+            cycleVariations();
         }
     }
+
+    function cycleVariations() {
+        if (variationIndex < variations.length) {
+            // Type out a space and then the variation
+            currentVariation = variations[variationIndex];
+            typeVariation();
+        } else {
+            // No more variations: end with "Stoic"
+            // "Stoic" is already displayed, do nothing
+        }
+    }
+
+    function typeVariation() {
+        // Count how many letters of the variation have been typed
+        const currentLength = mainTitle.textContent.length - baseWord.length - 1; // minus "Stoic " length
+
+        if (!isDeleting && currentLength < currentVariation.length) {
+            // Type forward
+            mainTitle.textContent = baseWord + " " + currentVariation.slice(0, currentLength + 1);
+            setTimeout(typeVariation, 100);
+        } else if (!isDeleting && currentLength === currentVariation.length) {
+            // Full variation typed, wait, then start deleting
+            setTimeout(() => {
+                isDeleting = true;
+                typeVariation();
+            }, 1000);
+        } else if (isDeleting && currentLength > 0) {
+            // Delete letters of the variation
+            mainTitle.textContent = baseWord + " " + currentVariation.slice(0, currentLength - 1);
+            setTimeout(typeVariation, 50);
+        } else if (isDeleting && currentLength === 0) {
+            // Finished deleting the variation and the space
+            // Move to the next variation
+            isDeleting = false;
+            variationIndex++;
+            cycleVariations();
+        }
+    }
+
     typeTitle();
 
     // Wave effect for subtitle
