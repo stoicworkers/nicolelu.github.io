@@ -8,7 +8,6 @@ html, body {
 }
 
 body {
-    /* For smooth scrolling animations */
     scroll-behavior: smooth;
 }
 
@@ -37,21 +36,50 @@ body {
     transform: translateY(-50%);
 }
 
+/* Main Title - Iridescent Fading */
 .main-title {
-    font-size: 5rem;
+    font-size: 8rem;
     font-weight: 700;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    animation: iridescent 5s infinite linear;
+}
+
+@keyframes iridescent {
+    0% { background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff); }
+    25% { background: linear-gradient(to right, #ffff00, #ff00ff, #00ffff); }
+    50% { background: linear-gradient(to right, #00ff00, #00ffff, #ff00ff); }
+    75% { background: linear-gradient(to right, #00ffff, #00ff00, #ffff00); }
+    100% { background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff); }
+}
+
+/* Subtitle Container for scrolling/waving effect */
+.subtitle-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 4em;
+    margin-top: 1rem;
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    margin-top: 1rem;
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    font-size: 3rem;
     font-weight: 300;
+    will-change: transform;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.subtitle span {
+    display: inline-block;
+    will-change: transform;
 }
 
 /* Parallax background */
@@ -62,7 +90,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('https://stoicworkers.github.io/nicolelu.github.io/background.png') repeat center center;
+    /* Update this URL to point to your image in the repo */
+    background: url('images/background.jpg') repeat center center;
     background-size: cover;
     transform: translateZ(-1px) scale(2);
     z-index: 1;
@@ -129,17 +158,4 @@ body {
 
 .contact-form button:hover {
     background: linear-gradient(to right, #00ffff, #ff00ff);
-}
-
-/* Wave effect for subtitle letters */
-.subtitle {
-    display: inline-block;
-    white-space: nowrap;
-    transform-origin: center;
-}
-
-/* Individual letter styles applied via JS */
-.subtitle span {
-    display: inline-block;
-    transition: transform 0.2s ease;
 }
