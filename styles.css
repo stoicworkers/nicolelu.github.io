@@ -12,6 +12,16 @@ body {
     scroll-behavior: smooth;
 }
 
+#subtitle {
+    white-space: normal; /* Allows spaces to be preserved */
+    display: inline-block; /* Helps maintain layout */
+}
+
+#subtitle .subtitle-space {
+    display: inline-block;
+    width: 0.5em; /* Adjust as needed to match your font */
+}
+
 .parallax-container {
     position: relative;
     height: 100vh;
