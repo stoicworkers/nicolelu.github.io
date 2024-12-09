@@ -63,125 +63,6 @@ body, html {
     -webkit-text-fill-color: transparent;
 }
 
-.subtitle-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.subtitle-scroll {
-    display: inline-block;
-    white-space: nowrap;
-    animation: scrollSubtitle 15s linear infinite;
-}
-
-.subtitle-text {
-    display: inline-block;
-    font-size: 1.5rem;
-    color: var(--accent-pink);
-    font-weight: 300;
-    margin: 0 2rem;
-    animation: waveMotion 2s ease-in-out infinite alternate;
-}
-
-@keyframes scrollSubtitle {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes waveMotion {
-    0% {
-        transform: translateY(0) rotate(-5deg);
-    }
-    50% {
-        transform: translateY(15px) rotate(5deg);
-    }
-    100% {
-        transform: translateY(0) rotate(-5deg);
-    }
-}
-
-.content-section {
-    position: relative;
-    background: rgba(11, 11, 27, 0.9);
-    padding: 4rem 0;
-    z-index: 2;
-}
-
-#contact {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--bg-dark); /* Changed from rgba(0, 0, 0, 0.4) to use the dark background variable */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(126, 63, 242, 0.2);
-}
-
-#contact h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--accent-blue);
-    font-weight: 600;
-    font-size: 2rem;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--accent-purple);
-    color: white;
-    border-radius: 5px;
-    font-family: 'Raleway', sans-serif;
-    transition: border-color 0.3s ease;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 10px rgba(126, 63, 242, 0.3);
-}
-
-textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
-button {
-    background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
-    margin-top: 1rem;
-}
-
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(126, 63, 242, 0.5);
-}
-
-#formStatus {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 1rem;
-}
-
-
 .typing-container {
     display: flex;
     justify-content: center;
@@ -270,8 +151,178 @@ button:hover {
     }
 }
 
+.subtitle-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.subtitle-text {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: var(--accent-pink);
+    font-weight: 300;
+    margin: 0 2rem;
+    animation: waveMotion 2s ease-in-out infinite alternate;
+}
+
+.subtitle-text > span {
+    display: inline-block;
+    animation: letterWave 2s ease-in-out infinite alternate;
+}
+
+.subtitle-text > span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.subtitle-text > span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.subtitle-text > span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(6) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(7) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(8) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(9) {
+    animation-delay: 0.2s;
+}
+
+.subtitle-text > span:nth-child(10) {
+    animation-delay: 0.2s;
+}
+
+
+
+@keyframes waveMotion {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes letterWave {
+    0% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(-5deg);
+    }
+}
+
+.content-section {
+    position: relative;
+    background: rgba(11, 11, 27, 0.9);
+    padding: 4rem 0;
+    z-index: 2;
+}
+
+#contact {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--bg-dark);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(126, 63, 242, 0.2);
+}
+
+#contact h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-purple);
+    color: white;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(126, 63, 242, 0.3);
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button {
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(126, 63, 242, 0.5);
+}
+
+#formStatus {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .typing-container {
+        font-size: 4rem;
+    }
+    .typing-dynamic {
+        min-width: 200px;
+    }
     .hero-content h1 {
         font-size: 4rem;
     }
@@ -281,11 +332,5 @@ button:hover {
     #contact {
         padding: 1rem;
         margin: 0 1rem;
-    }
-    .typing-container {
-        font-size: 4rem;
-    }
-    .typing-dynamic {
-        min-width: 200px;
     }
 }
