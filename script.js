@@ -1,29 +1,59 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
+document.addEventListener("DOMContentLoaded", function() {
+    // Typing effect for main title
+    const mainTitle = document.getElementById("main-title");
+    const titlePhrases = ["Stoic AI", "Stoic Agents", "Stoic Workers", "Stoic Consultants", "Stoic"];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let currentPhrase = titlePhrases[phraseIndex];
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        
-        fetch('https://formspree.io/f/mqakobad', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                formStatus.innerHTML = '<p style="color: #4d9eff;">Thanks for your submission! We will reach out soon!</p>';
-                form.reset();
+    function typeTitle() {
+        if (!deleting && charIndex <= currentPhrase.length) {
+            mainTitle.textContent = currentPhrase.slice(0, charIndex++);
+            setTimeout(typeTitle, 100);
+        } else if (deleting && charIndex >= 0) {
+            mainTitle.textContent = currentPhrase.slice(0, charIndex--);
+            setTimeout(typeTitle, 50);
+        } else {
+            if (!deleting) {
+                // Finished typing, pause before deleting
+                if (phraseIndex < titlePhrases.length - 1) {
+                    setTimeout(() => { deleting = true; typeTitle(); }, 1000);
+                } else {
+                    // Last phrase "Stoic" stay
+                }
             } else {
-                formStatus.innerHTML = '<p style="color: #ff46b3;">Oops! There was a problem submitting your form</p>';
+                // Finished deleting, move to next phrase
+                deleting = false;
+                phraseIndex++;
+                if (phraseIndex < titlePhrases.length) {
+                    currentPhrase = titlePhrases[phraseIndex];
+                    setTimeout(typeTitle, 200);
+                }
             }
-        })
-        .catch(error => {
-            formStatus.innerHTML = '<p style="color: #ff46b3;">Oops! There was a problem submitting your form</p>';
+        }
+    }
+    typeTitle();
+
+    // Wave effect for subtitle
+    const subtitle = document.getElementById('subtitle');
+    const subtitleText = subtitle.textContent;
+    subtitle.textContent = '';
+
+    // Split subtitle into spans for each letter
+    for (let i = 0; i < subtitleText.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = subtitleText[i];
+        subtitle.appendChild(span);
+    }
+
+    const subtitleSpans = subtitle.querySelectorAll('span');
+
+    window.addEventListener('scroll', () => {
+        let scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        subtitleSpans.forEach((span, i) => {
+            const wave = Math.sin((scrollPos / 100) + i / 5) * 15; 
+            span.style.transform = `rotate(${wave}deg)`;
         });
     });
 });
