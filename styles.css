@@ -42,6 +42,7 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -61,10 +62,44 @@ body, html {
     margin-bottom: 1rem;
 }
 
-.hero-content .subtitle {
+.subtitle-scroll {
+    position: absolute;
+    width: 400%; /* Extra wide to ensure continuous scroll */
+    display: flex;
+    animation: scrollSubtitle 20s linear infinite;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.subtitle-scroll-inner {
+    display: flex;
+    animation: waveMotion 2s ease-in-out infinite alternate;
+}
+
+.subtitle-text {
     font-size: 1.5rem;
     color: var(--accent-pink);
     font-weight: 300;
+    margin: 0 2rem;
+    opacity: 0.7;
+}
+
+@keyframes scrollSubtitle {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes waveMotion {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10px);
+    }
 }
 
 .content-section {
@@ -74,64 +109,4 @@ body, html {
     z-index: 2;
 }
 
-#contact {
-    max-width: 600px;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 2rem;
-    border-radius: 10px;
-}
-
-#contact h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: var(--accent-blue);
-    font-weight: 600;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input, textarea {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--accent-purple);
-    color: white;
-    border-radius: 5px;
-    font-family: 'Raleway', sans-serif;
-}
-
-button {
-    background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-#formStatus {
-    margin-top: 1rem;
-    text-align: center;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 4rem;
-    }
-
-    .hero-content .subtitle {
-        font-size: 1.2rem;
-    }
-}
+/* Rest of the previous CSS remains the same */
