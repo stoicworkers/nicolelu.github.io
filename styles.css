@@ -62,7 +62,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('images/background.jpg') repeat center center;
+    background: url('https://stoicworkers.github.io/nicolelu.github.io/background.png') repeat center center;
     background-size: cover;
     transform: translateZ(-1px) scale(2);
     z-index: 1;
