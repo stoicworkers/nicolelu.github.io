@@ -95,10 +95,13 @@ body, html {
 
 @keyframes waveMotion {
     0% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(15px) rotate(5deg);
     }
     100% {
-        transform: translateY(10px);
+        transform: translateY(0) rotate(-5deg);
     }
 }
 
@@ -112,7 +115,7 @@ body, html {
 #contact {
     max-width: 600px;
     margin: 0 auto;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--bg-dark); /* Changed from rgba(0, 0, 0, 0.4) to use the dark background variable */
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(126, 63, 242, 0.2);
