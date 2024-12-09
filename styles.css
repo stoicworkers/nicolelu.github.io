@@ -36,28 +36,27 @@ body {
     transform: translateY(-50%);
 }
 
-/* Main Title - Iridescent Fading */
+/* Main Title - Tighter Iridescent Gradient */
 .main-title {
     font-size: 8rem;
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff);
+    background: linear-gradient(90deg, #ff00ff 0%, #00ffff 30%, #ff00ff 60%, #ffff00 90%);
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: iridescent 5s infinite linear;
 }
 
 @keyframes iridescent {
-    0% { background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff); }
-    25% { background: linear-gradient(to right, #ffff00, #ff00ff, #00ffff); }
-    50% { background: linear-gradient(to right, #00ff00, #00ffff, #ff00ff); }
-    75% { background: linear-gradient(to right, #00ffff, #00ff00, #ffff00); }
-    100% { background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff); }
+    0% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+    100% { background-position: 0% center; }
 }
 
-/* Subtitle Container for scrolling/waving effect */
+/* Subtitle Container */
 .subtitle-container {
     position: relative;
     width: 100%;
@@ -68,7 +67,8 @@ body {
 
 .subtitle {
     display: inline-block;
-    white-space: nowrap;
+    /* Using pre to ensure spaces appear as typed */
+    white-space: pre;
     position: absolute;
     font-size: 3rem;
     font-weight: 300;
@@ -80,6 +80,7 @@ body {
 .subtitle span {
     display: inline-block;
     will-change: transform;
+    margin-right: 0.1em; /* Add a bit of spacing so spaces are noticeable */
 }
 
 /* Parallax background */
@@ -90,7 +91,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    /* Update this URL to point to your image in the repo */
+    /* Update this URL to your image */
     background: url('images/background.jpg') repeat center center;
     background-size: cover;
     transform: translateZ(-1px) scale(2);
