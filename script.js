@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let waveAmplitude = 10; // Vertical amplitude of wave
     let waveFrequency = 0.3; // Horizontal frequency of wave
     let rotationAmplitude = 20; // Max rotation in degrees
+    let waveCounter = 0;
 
     function animateSubtitle() {
         // Move subtitle from right to left
@@ -89,14 +90,18 @@ document.addEventListener("DOMContentLoaded", function() {
             offset = 0;
         }
 
-        // Apply transform to subtitle container
+        // Apply horizontal scroll transform
         subtitle.style.transform = `translateX(${offset}px)`;
+
+        // Increment waveCounter to animate wave over time
+        waveCounter += 0.02;
 
         // Wave effect: rotate and move letters up/down
         for (let i = 0; i < subtitleSpans.length; i++) {
             const letterSpan = subtitleSpans[i];
             // Use offset and index to create a wave pattern
-            const wave = Math.sin((offset / 50) + i * waveFrequency);
+            // Add waveCounter to animate continuous wave motion
+            const wave = Math.sin(waveCounter + i * waveFrequency);
             const y = wave * waveAmplitude;
             const rotate = wave * rotationAmplitude;
 
