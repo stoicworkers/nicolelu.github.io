@@ -8,6 +8,7 @@ html, body {
 }
 
 body {
+    /* For smooth scrolling animations */
     scroll-behavior: smooth;
 }
 
@@ -36,51 +37,21 @@ body {
     transform: translateY(-50%);
 }
 
-/* Main Title - Tighter Iridescent Gradient */
 .main-title {
-    font-size: 8rem;
+    font-size: 5rem;
     font-weight: 700;
     margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background: linear-gradient(90deg, #ff00ff 0%, #00ffff 30%, #ff00ff 60%, #ffff00 90%);
-    background-size: 200% 100%;
+    background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: iridescent 5s infinite linear;
-}
-
-@keyframes iridescent {
-    0% { background-position: 0% center; }
-    50% { background-position: 100% center; }
-    100% { background-position: 0% center; }
-}
-
-/* Subtitle Container */
-.subtitle-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    height: 4em;
-    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .subtitle {
-    display: inline-block;
-    /* Using pre to ensure spaces appear as typed */
-    white-space: pre;
-    position: absolute;
-    font-size: 3rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
     font-weight: 300;
-    will-change: transform;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.subtitle span {
-    display: inline-block;
-    will-change: transform;
-    margin-right: 0.1em; /* Add a bit of spacing so spaces are noticeable */
 }
 
 /* Parallax background */
@@ -158,4 +129,17 @@ body {
 
 .contact-form button:hover {
     background: linear-gradient(to right, #00ffff, #ff00ff);
+}
+
+/* Wave effect for subtitle letters */
+.subtitle {
+    display: inline-block;
+    white-space: nowrap;
+    transform-origin: center;
+}
+
+/* Individual letter styles applied via JS */
+.subtitle span {
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
