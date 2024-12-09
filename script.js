@@ -8,36 +8,32 @@ document.addEventListener("DOMContentLoaded", function() {
     let isDeleting = false;
     let currentVariation = "";
 
-    // We'll first type out "Stoic" and then proceed to type the variations.
-    function typeTitle() {
-        // If we haven't typed baseWord fully yet
+    // First, type out "Stoic"
+    function typeBase() {
         if (charIndex < baseWord.length) {
             mainTitle.textContent = baseWord.slice(0, charIndex + 1);
             charIndex++;
-            setTimeout(typeTitle, 100);
+            setTimeout(typeBase, 100);
         } else {
-            // Once "Stoic" is fully typed, move on to variations.
+            // Once "Stoic" is typed, proceed to variations
             cycleVariations();
         }
     }
 
     function cycleVariations() {
         if (variationIndex < variations.length) {
-            // Type out a space and then the variation
             currentVariation = variations[variationIndex];
             typeVariation();
         } else {
-            // No more variations: end with "Stoic"
-            // "Stoic" is already displayed, do nothing
+            // End with just "Stoic"
+            // Already displayed, do nothing.
         }
     }
 
     function typeVariation() {
-        // Count how many letters of the variation have been typed
-        const currentLength = mainTitle.textContent.length - baseWord.length - 1; // minus "Stoic " length
-
+        const currentLength = mainTitle.textContent.length - baseWord.length - 1; // subtract "Stoic " length
         if (!isDeleting && currentLength < currentVariation.length) {
-            // Type forward
+            // Type forward the variation
             mainTitle.textContent = baseWord + " " + currentVariation.slice(0, currentLength + 1);
             setTimeout(typeVariation, 100);
         } else if (!isDeleting && currentLength === currentVariation.length) {
@@ -47,39 +43,68 @@ document.addEventListener("DOMContentLoaded", function() {
                 typeVariation();
             }, 1000);
         } else if (isDeleting && currentLength > 0) {
-            // Delete letters of the variation
+            // Deleting characters
             mainTitle.textContent = baseWord + " " + currentVariation.slice(0, currentLength - 1);
             setTimeout(typeVariation, 50);
         } else if (isDeleting && currentLength === 0) {
-            // Finished deleting the variation and the space
-            // Move to the next variation
+            // Variation fully deleted
             isDeleting = false;
             variationIndex++;
             cycleVariations();
         }
     }
 
-    typeTitle();
+    typeBase();
 
-    // Wave effect for subtitle
+    // Subtitle waving and scrolling effect
     const subtitle = document.getElementById('subtitle');
-    const subtitleText = subtitle.textContent;
-    subtitle.textContent = '';
+    const originalText = subtitle.textContent;
+    // Duplicate the text for a seamless scroll
+    subtitle.textContent = originalText + "    " + originalText;
 
-    // Split subtitle into spans for each letter
-    for (let i = 0; i < subtitleText.length; i++) {
+    const subtitleSpans = [];
+    // Wrap each character in a span
+    const text = subtitle.textContent;
+    subtitle.textContent = '';
+    for (let i = 0; i < text.length; i++) {
         const span = document.createElement('span');
-        span.textContent = subtitleText[i];
+        span.textContent = text[i];
         subtitle.appendChild(span);
+        subtitleSpans.push(span);
     }
 
-    const subtitleSpans = subtitle.querySelectorAll('span');
+    let offset = window.innerWidth; // Start from the right side of the screen
+    let speed = 2; // Speed of horizontal scrolling
+    let waveAmplitude = 10; // Vertical amplitude of wave
+    let waveFrequency = 0.3; // Horizontal frequency of wave
+    let rotationAmplitude = 20; // Max rotation in degrees
 
-    window.addEventListener('scroll', () => {
-        let scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-        subtitleSpans.forEach((span, i) => {
-            const wave = Math.sin((scrollPos / 100) + i / 5) * 15; 
-            span.style.transform = `rotate(${wave}deg)`;
-        });
-    });
+    function animateSubtitle() {
+        // Move subtitle from right to left
+        offset -= speed;
+        // If we've scrolled far enough that the text is fully off to the left by half,
+        // reset offset to create a looping marquee
+        const fullWidth = subtitle.scrollWidth / 2;
+        if (offset < -fullWidth) {
+            offset = 0;
+        }
+
+        // Apply transform to subtitle container
+        subtitle.style.transform = `translateX(${offset}px)`;
+
+        // Wave effect: rotate and move letters up/down
+        for (let i = 0; i < subtitleSpans.length; i++) {
+            const letterSpan = subtitleSpans[i];
+            // Use offset and index to create a wave pattern
+            const wave = Math.sin((offset / 50) + i * waveFrequency);
+            const y = wave * waveAmplitude;
+            const rotate = wave * rotationAmplitude;
+
+            letterSpan.style.transform = `translateY(${y}px) rotate(${rotate}deg)`;
+        }
+
+        requestAnimationFrame(animateSubtitle);
+    }
+
+    requestAnimationFrame(animateSubtitle);
 });
