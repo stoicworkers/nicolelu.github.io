@@ -38,22 +38,30 @@ document.addEventListener("DOMContentLoaded", function() {
     // Wave effect for subtitle
     const subtitle = document.getElementById('subtitle');
     const subtitleText = subtitle.textContent;
-    subtitle.textContent = '';
-
-    // Split subtitle into spans for each letter
+    subtitle.textContent = ''; // Clear original text
+    
+    // Split subtitle into spans for each character or space
     for (let i = 0; i < subtitleText.length; i++) {
         const span = document.createElement('span');
         span.textContent = subtitleText[i];
+        
+        // Add a non-breaking space class for space characters to maintain layout
+        if (subtitleText[i] === ' ') {
+            span.classList.add('subtitle-space');
+            span.innerHTML = '&nbsp;'; // Use non-breaking space to preserve spacing
+        }
+        
         subtitle.appendChild(span);
     }
-
-    const subtitleSpans = subtitle.querySelectorAll('span');
-
+    
+    const subtitleSpans = subtitle.querySelectorAll('span:not(.subtitle-space)');
+    
     window.addEventListener('scroll', () => {
         let scrollPos = window.pageYOffset || document.documentElement.scrollTop;
         subtitleSpans.forEach((span, i) => {
-            const wave = Math.sin((scrollPos / 100) + i / 5) * 15; 
+            const wave = Math.sin((scrollPos / 100) + i / 5) * 15;
             span.style.transform = `rotate(${wave}deg)`;
         });
-    });
+    });    
+    
 });
