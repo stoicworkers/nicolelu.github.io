@@ -181,19 +181,111 @@ button:hover {
     font-size: 1rem;
 }
 
+
+.typing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+    font-weight: 700;
+    height: 1.2em;
+}
+
+.typing-text {
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.typing-dynamic {
+    position: relative;
+    display: inline-block;
+    min-width: 300px;
+    text-align: center;
+}
+
+.typing-dynamic::before {
+    content: "Stoic";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    max-width: 0;
+    white-space: nowrap;
+    animation: 
+        typing 2s steps(6) forwards,
+        pause 1s,
+        dynamic-text 12s steps(20) infinite;
+}
+
+@keyframes typing {
+    to {
+        max-width: 100%;
+    }
+}
+
+@keyframes dynamic-text {
+    0%, 20% {
+        content: "Stoic AI";
+        max-width: 100%;
+    }
+    25%, 45% {
+        content: "Stoic Agents";
+        max-width: 100%;
+    }
+    50%, 70% {
+        content: "Stoic Consultants";
+        max-width: 100%;
+    }
+    75%, 100% {
+        content: "Stoic";
+        max-width: 100%;
+    }
+}
+
+@keyframes pause {
+    to {
+        max-width: 100%;
+    }
+}
+
+.typing-dynamic::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent-blue);
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 4rem;
     }
-
     .subtitle-text {
         font-size: 1.2rem;
     }
-
     #contact {
         padding: 1rem;
         margin: 0 1rem;
     }
+    .typing-container {
+        font-size: 4rem;
+    }
+    .typing-dynamic {
+        min-width: 200px;
+    }
 }
-
