@@ -4,73 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stoic - AI Agents for Management Consulting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="parallax-bg"></div>
     
-    
-    <div class="hero-section">
+    <div class="container">
+        <header>
+            <h1 class="iridescent-text">Stoic</h1>
+            <h2 class="subtitle">AI Agents for Management Consulting</h2>
+        </header>
 
-    </div>
-        <div class="hero-content iridescent-text">
-            <h1>Stoic</h1>
-        </div>
-        
-        <div class="subtitle-container">
-            <svg width="200px" height="200px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        text { font-size: 8px }
-    </style>
-
-    <symbol id="s1">
-        <path id="p1" d=""M0,66L12,66C24,66,48,66,72,71.5C96,77,120,88,144,93.5C168,99,192,99,216,110C240,121,264,143,288,159.5C312,176,336,187,360,159.5C384,132,408,66,432,77C456,88,480,176,504,181.5C528,187,552,110,576,71.5C600,33,624,33,648,60.5C672,88,696,143,720,181.5C744,220,768,242,792,258.5C816,275,840,286,864,247.5C888,209,912,121,936,121C960,121,984,209,1008,209C1032,209,1056,121,1080,71.5C1104,22,1128,11,1152,22C1176,33,1200,66,1224,88C1248,110,1272,121,1296,121C1320,121,1344,110,1368,115.5C1392,121,1416,143,1440,159.5C1464,176,1488,187,1512,181.5C1536,176,1560,154,1584,132C1608,110,1632,88,1656,99C1680,110,1704,154,1716,176L1728,198L1728,330L1716,330C1704,330,1680,330,1656,330C1632,330,1608,330,1584,330C1560,330,1536,330,1512,330C1488,330,1464,330,1440,330C1416,330,1392,330,1368,330C1344,330,1320,330,1296,330C1272,330,1248,330,1224,330C1200,330,1176,330,1152,330C1128,330,1104,330,1080,330C1056,330,1032,330,1008,330C984,330,960,330,936,330C912,330,888,330,864,330C840,330,816,330,792,330C768,330,744,330,720,330C696,330,672,330,648,330C624,330,600,330,576,330C552,330,528,330,504,330C480,330,456,330,432,330C408,330,384,330,360,330C336,330,312,330,288,330C264,330,240,330,216,330C192,330,168,330,144,330C120,330,96,330,72,330C48,330,24,330,12,330L0,330Z"/>
-        
-    </symbol>
-
-    <use href="#s1" stroke="silver" stroke-width="10" fill="none" />
-
-    <text dominant-baseline="middle">
-        <textPath href="#p1" startOffset="100%">
-            AI agents for management consulting
-        <animate
-        attributeName="startOffset" from="100%" to="-100%"
-        dur="10s" repeatCount="indefinite" />
-        </textPath>
-    </text>
-
-    <text dominant-baseline="middle">
-        <textPath href="#p1" startOffset="100%">
-            AI agents for management consulting
-        <animate
-        attributeName="startOffset" from="100%" to="-100%"
-        dur="10s" begin="5s" repeatCount="indefinite" />
-        </textPath>
-    </text>
-    
-</svg>
-<!--             <div class="subtitle-scroll">
-                <span class="subtitle-text">AI agents for management consulting</span>
-                <span class="subtitle-text">AI agents for management consulting</span>
-                <span class="subtitle-text">AI agents for management consulting</span>
-            </div> -->
-        </div>
-    </div>
-
-    <div class="content-section">
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
-                <input type="email" id="email" name="email" placeholder="Your Email" required>
-                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+        <main>
+            <form id="contact-form" action="https://formspree.io/f/mqakobad" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="_replyto" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
                 <button type="submit">Send Message</button>
             </form>
-            <div id="formStatus"></div>
-        </section>
+        </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
