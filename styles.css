@@ -39,6 +39,7 @@ body, html {
     position: relative;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -51,6 +52,7 @@ body, html {
     padding: 3rem;
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(126, 63, 242, 0.3);
+    margin-bottom: 2rem;
 }
 
 .hero-content h1 {
@@ -59,37 +61,35 @@ body, html {
     background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+}
+
+.subtitle-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
 
 .subtitle-scroll {
-    position: absolute;
-    width: 400%;
-    display: flex;
-    animation: scrollSubtitle 20s linear infinite;
+    display: inline-block;
     white-space: nowrap;
-    will-change: transform;
-}
-
-.subtitle-scroll-inner {
-    display: flex;
-    animation: waveMotion 2s ease-in-out infinite alternate;
+    animation: scrollSubtitle 15s linear infinite;
 }
 
 .subtitle-text {
+    display: inline-block;
     font-size: 1.5rem;
     color: var(--accent-pink);
     font-weight: 300;
     margin: 0 2rem;
-    opacity: 0.7;
+    animation: waveMotion 2s ease-in-out infinite alternate;
 }
 
 @keyframes scrollSubtitle {
     0% {
-        transform: translateX(0%);
+        transform: translateX(100%);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 
