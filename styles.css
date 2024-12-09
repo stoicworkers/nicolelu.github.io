@@ -1,152 +1,145 @@
-/* Reset and Base Styles */
-* {
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body, html {
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-color: #000;
+    font-family: 'Raleway', sans-serif;
     color: #fff;
-    line-height: 1.6;
+    background: #000;
+    overflow-x: hidden;
 }
 
-/* Parallax Background */
-.parallax-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://stoicworkers.github.io/nicolelu.github.io/background.png');
-    background-repeat: repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    filter: brightness(0.3) saturate(1.5);
-    z-index: -1;
+body {
+    /* For smooth scrolling animations */
+    scroll-behavior: smooth;
 }
 
-/* Container */
-.container {
+.parallax-container {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
-    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    background: #000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1px;
+    transform-style: preserve-3d;
 }
 
-/* Header Styles */
-header {
+.content {
+    position: relative;
+    z-index: 2;
+    min-height: 200vh; /* Enough vertical space to allow scrolling */
+}
+
+.title-container {
+    position: sticky;
+    top: 40%;
+    width: 100%;
     text-align: center;
-    margin-bottom: 3rem;
+    transform: translateY(-50%);
 }
 
-.iridescent-text {
-    font-size: 6rem;
-    font-weight: bold;
-    background: linear-gradient(
-        45deg, 
-        #ff00ff, 
-        #00ffff, 
-        #00ff00, 
-        #ff00ff
-    );
-    background-size: 400% 400%;
+.main-title {
+    font-size: 5rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: iridescent-animation 10s ease infinite;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .subtitle {
     font-size: 1.5rem;
-    color: #b0b0b0;
     margin-top: 1rem;
+    font-weight: 300;
 }
 
-/* Form Styles */
-#contact-form {
-    width: 100%;
-    max-width: 500px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+/* Parallax background */
+.parallax-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('images/background.jpg') repeat center center;
+    background-size: cover;
+    transform: translateZ(-1px) scale(2);
+    z-index: 1;
+}
+
+/* Form section styling */
+.form-section {
+    position: relative;
+    background: #111;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.form-section h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #b0b0b0;
+    margin-bottom: 8px;
+    font-weight: 400;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input, .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #ff00ff;
-    box-shadow: 0 0 0 3px rgba(255, 0, 255, 0.3);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 150px;
-}
-
-button {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    color: white;
+    padding: 10px;
+    background: #222;
     border: none;
-    border-radius: 8px;
+    border-bottom: 2px solid #444;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-bottom: 2px solid #ff00ff;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to right, #ff00ff, #00ffff);
+    border: none;
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s;
 }
 
-button:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+.contact-form button:hover {
+    background: linear-gradient(to right, #00ffff, #ff00ff);
 }
 
-/* Animations */
-@keyframes iridescent-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Wave effect for subtitle letters */
+.subtitle {
+    display: inline-block;
+    white-space: nowrap;
+    transform-origin: center;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .iridescent-text {
-        font-size: 4rem;
-    }
-
-    .subtitle {
-        font-size: 1.2rem;
-    }
-
-    #contact-form {
-        width: 95%;
-        padding: 1rem;
-    }
+/* Individual letter styles applied via JS */
+.subtitle span {
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
