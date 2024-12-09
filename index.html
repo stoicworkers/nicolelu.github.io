@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stoic - AI Agents for Management Consulting</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Stoic</title>
+    
+    <!-- Google Fonts: Raleway -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
-    <div class="parallax-bg"></div>
-    
-    <div class="container">
-        <header>
-            <h1 class="iridescent-text">Stoic</h1>
-            <h2 class="subtitle">AI Agents for Management Consulting</h2>
-        </header>
-
-        <main>
-            <form id="contact-form" action="https://formspree.io/f/mqakobad" method="POST">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="_replyto" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                
-                <button type="submit">Send Message</button>
-            </form>
-        </main>
+    <div class="parallax-container">
+        <div class="content">
+            <div class="title-container">
+                <h1 id="main-title" class="main-title"></h1>
+                <h2 id="subtitle" class="subtitle">AI agents for management consulting</h2>
+            </div>
+        </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <section class="form-section">
+        <h3>Contact Us</h3>
+        <form action="https://formspree.io/f/your_form_id_here" method="POST" class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="_replyto" placeholder="Your email..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message..." rows="4" required></textarea>
+            </div>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
