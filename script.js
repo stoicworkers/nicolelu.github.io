@@ -77,53 +77,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingEffect = new TypingEffect('typing-text', phrases);
     typingEffect.type();
 
-    // Form handling
+    // Simple form handling
     const form = document.getElementById('contact-form');
-    const submitButton = document.getElementById('submit-button');
-    const formStatus = document.getElementById('form-status');
+    
+    form.addEventListener('submit', function(e) {
+        const formData = new FormData(form);
+        const button = form.querySelector('button');
+        
+        // Show sending state
+        button.textContent = 'Sending...';
+        button.disabled = true;
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Show loading state
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-        
-        try {
-            console.log('Sending form data...');  // Debug log
-            const formData = new FormData(form);
-            
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            
-            console.log('Response received:', response.status);  // Debug log
-            
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log('Success:', responseData);  // Debug log
-                
-                formStatus.textContent = 'Thank you for your message! We will get back to you soon.';
-                formStatus.className = 'success';
-                form.reset();
-            } else {
-                const errorData = await response.text();
-                console.error('Form submission error:', errorData);  // Debug log
-                throw new Error(`Form submission failed: ${response.status}`);
+        // Let the form submit normally, but in the background
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-        } catch (error) {
-            console.error('Error details:', error);  // Debug log
-            
-            // Friendly error message
-            formStatus.textContent = 'Oops! Something went wrong. Please try again.';
-            formStatus.className = 'error';
-        } finally {
-            submitButton.classList.remove('loading');
-            submitButton.disabled = false;
-        }
+        }).then(response => {
+            if (response.ok) {
+                // Show success message
+                form.innerHTML = `
+                    <h2>Thank you!</h2>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        Your message has been sent successfully. We'll get back to you soon.
+                    </p>
+                `;
+            }
+        }).catch(() => {
+            // If fetch fails, let the form submit normally
+            form.submit();
+        });
+        
+        // Prevent the default form submission
+        e.preventDefault();
     });
 });
