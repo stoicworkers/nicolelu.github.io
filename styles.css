@@ -69,7 +69,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     perspective: 10px;
-    background: url('https://stoicworkers.github.io/nicolelu.github.io/background.png') repeat-y;
+    background: url('background.png') repeat-y;
     background-size: cover;
 }
 
@@ -236,4 +236,20 @@ button.loading::after {
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: var(--text-color-1);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+    box-shadow: 0 0 15px var(--glow-color-1);
 }
