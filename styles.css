@@ -1,155 +1,239 @@
-html, body {
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes colorShift {
+    0% {
+        --text-color-1: #ff69b4;   /* pink */
+        --text-color-2: #00ffff;   /* cyan */
+        --text-color-3: #ff00ff;   /* magenta */
+        --glow-color-1: rgba(255, 0, 255, 0.3);
+        --glow-color-2: rgba(255, 105, 180, 0.3);
+    }
+    33.33% {
+        --text-color-1: #ff69b4;   /* pink */
+        --text-color-2: #00ffff;   /* cyan */
+        --text-color-3: #ff00ff;   /* magenta */
+        --glow-color-1: rgba(255, 105, 180, 0.3);
+        --glow-color-2: rgba(0, 255, 255, 0.3);
+    }
+    66.67% {
+        --text-color-1: #ff69b4;   /* pink */
+        --text-color-2: #00ffff;   /* cyan */
+        --text-color-3: #ff00ff;   /* magenta */
+        --glow-color-1: rgba(0, 255, 255, 0.3);
+        --glow-color-2: rgba(255, 0, 255, 0.3);
+    }
+    100% {
+        --text-color-1: #ff69b4;   /* pink */
+        --text-color-2: #00ffff;   /* cyan */
+        --text-color-3: #ff00ff;   /* magenta */
+        --glow-color-1: rgba(255, 0, 255, 0.3);
+        --glow-color-2: rgba(255, 105, 180, 0.3);
+    }
+}
+
+:root {
+    --text-color-1: #ff69b4;
+    --text-color-2: #00ffff;
+    --text-color-3: #ff00ff;
+    --glow-color-1: rgba(255, 0, 255, 0.3);
+    --glow-color-2: rgba(0, 255, 255, 0.3);
+    --background-color: #1a1a1a;
+    animation: colorShift 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Raleway', sans-serif;
-    color: #fff;
-    background: #000;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 body {
-    /* For smooth scrolling animations */
-    scroll-behavior: smooth;
-}
-
-#subtitle {
-    white-space: normal; /* Allows spaces to be preserved */
-    display: inline-block; /* Helps maintain layout */
-}
-
-#subtitle .subtitle-space {
-    display: inline-block;
-    width: 0.5em; /* Adjust as needed to match your font */
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--background-color);
+    color: white;
+    overflow-x: hidden;
 }
 
 .parallax-container {
-    position: relative;
     height: 100vh;
-    width: 100%;
-    background: #000;
-    overflow-x: hidden;
     overflow-y: auto;
-    perspective: 1px;
-    transform-style: preserve-3d;
+    overflow-x: hidden;
+    perspective: 10px;
+    background: url('https://stoicworkers.github.io/nicolelu.github.io/background.png') repeat-y;
+    background-size: cover;
 }
 
 .content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
     position: relative;
-    z-index: 2;
-    min-height: 200vh; /* Enough vertical space to allow scrolling */
 }
 
-.title-container {
-    position: sticky;
-    top: 40%;
+h1 {
+    font-size: 8rem;
+    font-weight: 700;
+    background: linear-gradient(
+        45deg,
+        var(--text-color-1),
+        var(--text-color-2),
+        var(--text-color-3)
+    );
+    background-size: 200% 200%;
+    animation: gradient 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 2rem;
+    text-shadow: 
+        0 0 15px var(--glow-color-1),
+        0 0 25px var(--glow-color-2);
+}
+
+.wave-text-container {
     width: 100%;
     text-align: center;
-    transform: translateY(-50%);
-}
-
-.main-title {
-    font-size: 15rem;
-    font-weight: 700;
-    margin: 0;
-    background: linear-gradient(to right, #ff00ff, #00ffff, #ff00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.subtitle {
-    font-size: 5rem;
     margin-top: 1rem;
-    font-weight: 300;
 }
 
-/* Parallax background */
-.parallax-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://stoicworkers.github.io/nicolelu.github.io/background.png') repeat center center;
-    background-size: cover;
-    transform: translateZ(-1px) scale(2);
-    z-index: 1;
-}
-
-/* Form section styling */
-.form-section {
-    position: relative;
-    background: #111;
-    padding: 50px 20px;
-    text-align: center;
-}
-
-.form-section h3 {
+.wave-text {
     font-size: 2rem;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, #00ffff, #ff00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
+    text-shadow: 
+        0 0 5px var(--text-color-2),
+        0 0 10px var(--text-color-3);
 }
 
-.contact-form {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left;
+.contact-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 500px;
+}
+
+form h2 {
+    margin-bottom: 2rem;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 400;
-}
-
-.form-group input, .form-group textarea {
+input, textarea {
     width: 100%;
-    padding: 10px;
-    background: #222;
-    border: none;
-    border-bottom: 2px solid #444;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
 }
 
-.form-group input:focus, .form-group textarea:focus {
-    border-bottom: 2px solid #ff00ff;
+textarea {
+    height: 150px;
+    resize: vertical;
 }
 
-.contact-form button {
+button {
     width: 100%;
-    padding: 10px;
-    background: linear-gradient(to right, #ff00ff, #00ffff);
+    padding: 1rem;
+    background: linear-gradient(45deg, var(--text-color-1), var(--text-color-2));
     border: none;
-    color: #000;
-    font-weight: 700;
-    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
-.contact-form button:hover {
-    background: linear-gradient(to right, #00ffff, #ff00ff);
+button:hover {
+    transform: scale(1.05);
+    font-size: 1.1rem;
+    box-shadow: 0 0 15px var(--glow-color-1);
+    letter-spacing: 1px;
 }
 
-/* Wave effect for subtitle letters */
-.subtitle {
-    display: inline-block;
-    white-space: nowrap;
-    transform-origin: center;
+.logo-container {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1000;
 }
 
-/* Individual letter styles applied via JS */
-.subtitle span {
-    display: inline-block;
-    transition: transform 0.2s ease;
+.logo {
+    width: 50px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+#form-status {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    display: none;
+}
+
+#form-status.success {
+    display: block;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+}
+
+#form-status.error {
+    display: block;
+    background: rgba(255, 182, 193, 0.1);    /* Light pink background */
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    color: #ffb6c1;    /* Light pink text */
+}
+
+button.loading {
+    position: relative;
+    color: transparent;
+}
+
+button.loading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }

@@ -1,96 +1,129 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Typing effect for main title
-    const mainTitle = document.getElementById("main-title");
-    const titlePhrases = ["Stoic AI", "Stoic Agents", "Stoic Workers", "Stoic Consultants", "Stoic"];
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    let currentPhrase = titlePhrases[phraseIndex];
+// Typing effect configuration
+const phrases = [
+    "Stoic AI",
+    "Stoic Agents",
+    "Stoic Workers",
+    "Stoic Consultants",
+    "Stoic"
+];
 
-    function typeTitle() {
-        if (!deleting && charIndex <= currentPhrase.length) {
-            mainTitle.textContent = currentPhrase.slice(0, charIndex++);
-            setTimeout(typeTitle, 100);
-        } else if (deleting && charIndex >= 0) {
-            mainTitle.textContent = currentPhrase.slice(0, charIndex--);
-            setTimeout(typeTitle, 50);
-        } else {
-            if (!deleting) {
-                // Finished typing, pause before deleting
-                if (phraseIndex < titlePhrases.length - 1) {
-                    setTimeout(() => { deleting = true; typeTitle(); }, 1000);
-                } else {
-                    // Last phrase "Stoic" stay
-                }
+class TypingEffect {
+    /**
+     * Initialize the typing effect
+     * @param {string} elementId - ID of the element to apply the effect to
+     * @param {string[]} phrases - Array of phrases to cycle through
+     * @param {number} typingSpeed - Speed of typing in milliseconds
+     * @param {number} deletingSpeed - Speed of deleting in milliseconds
+     */
+    constructor(elementId, phrases, typingSpeed = 100, deletingSpeed = 50) {
+        this.element = document.getElementById(elementId);
+        this.phrases = phrases;
+        this.currentPhrase = 0;
+        this.isDeleting = false;
+        this.typingSpeed = typingSpeed;
+        this.deletingSpeed = deletingSpeed;
+    }
+
+    /**
+     * Find common prefix between two strings
+     * @param {string} str1 - First string
+     * @param {string} str2 - Second string
+     * @returns {number} Length of common prefix
+     */
+    findCommonPrefixLength(str1, str2) {
+        let i = 0;
+        while (i < str1.length && i < str2.length && str1[i] === str2[i]) {
+            i++;
+        }
+        return i;
+    }
+
+    /**
+     * Type or delete characters and schedule the next update
+     */
+    async type() {
+        const currentText = this.element.textContent;
+        const targetText = this.phrases[this.currentPhrase];
+        const commonPrefixLength = this.findCommonPrefixLength(currentText, targetText);
+        
+        if (this.isDeleting) {
+            if (currentText.length > commonPrefixLength) {
+                this.element.textContent = currentText.slice(0, -1);
+                setTimeout(() => this.type(), this.deletingSpeed);
             } else {
-                // Finished deleting, move to next phrase
-                deleting = false;
-                phraseIndex++;
-                if (phraseIndex < titlePhrases.length) {
-                    currentPhrase = titlePhrases[phraseIndex];
-                    setTimeout(typeTitle, 200);
+                this.isDeleting = false;
+                setTimeout(() => this.type(), this.typingSpeed);
+            }
+        } else {
+            if (currentText.length < targetText.length) {
+                this.element.textContent = targetText.slice(0, currentText.length + 1);
+                setTimeout(() => this.type(), this.typingSpeed);
+            } else {
+                if (this.currentPhrase === this.phrases.length - 1) {
+                    return; // Stop at the last phrase
                 }
+                setTimeout(() => {
+                    this.isDeleting = true;
+                    this.currentPhrase = (this.currentPhrase + 1) % this.phrases.length;
+                    this.type();
+                }, 2000);
             }
         }
     }
-    typeTitle();
-
-    // Ensure only one instance of the subtitle effect
-const subtitle = document.getElementById('subtitle');
-
-// Remove any existing modifications
-if (subtitle.getAttribute('data-modified') === 'true') {
-    // Remove existing spans and reset
-    while (subtitle.firstChild) {
-        subtitle.removeChild(subtitle.firstChild);
-    }
-    subtitle.textContent = subtitle.getAttribute('data-original-text');
-    subtitle.removeAttribute('data-modified');
 }
 
-// Store original text
-const subtitleText = subtitle.textContent;
-subtitle.setAttribute('data-original-text', subtitleText);
-subtitle.setAttribute('data-modified', 'true');
-subtitle.textContent = ''; 
+// Initialize effects when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const typingEffect = new TypingEffect('typing-text', phrases);
+    typingEffect.type();
 
-// Split subtitle into spans for each character or space
-for (let i = 0; i < subtitleText.length; i++) {
-    const span = document.createElement('span');
-    span.textContent = subtitleText[i];
-    
-    // Add a non-breaking space class for space characters to maintain layout
-    if (subtitleText[i] === ' ') {
-        span.classList.add('subtitle-space');
-        span.innerHTML = '&nbsp;'; // Use non-breaking space to preserve spacing
-    }
-    
-    subtitle.appendChild(span);
-}
+    // Form handling
+    const form = document.getElementById('contact-form');
+    const submitButton = document.getElementById('submit-button');
+    const formStatus = document.getElementById('form-status');
 
-const subtitleSpans = Array.from(subtitle.querySelectorAll('span:not(.subtitle-space)'));
-
-// Continuous scrolling effect
-window.addEventListener('scroll', () => {
-    let scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-    
-    subtitleSpans.forEach((span, i) => {
-        // Create a more dynamic, continuous wave effect
-        const wave = Math.sin((scrollPos / 50) + i / 5) * 20;
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         
-        // Reset transform if it gets too extreme
-        span.style.transform = `rotate(${wave}deg)`;
+        // Show loading state
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+        
+        try {
+            console.log('Sending form data...');  // Debug log
+            const formData = new FormData(form);
+            
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            console.log('Response received:', response.status);  // Debug log
+            
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Success:', responseData);  // Debug log
+                
+                formStatus.textContent = 'Thank you for your message! We will get back to you soon.';
+                formStatus.className = 'success';
+                form.reset();
+            } else {
+                const errorData = await response.text();
+                console.error('Form submission error:', errorData);  // Debug log
+                throw new Error(`Form submission failed: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error details:', error);  // Debug log
+            
+            // Friendly error message
+            formStatus.textContent = 'Oops! Something went wrong. Please try again.';
+            formStatus.className = 'error';
+        } finally {
+            submitButton.classList.remove('loading');
+            submitButton.disabled = false;
+        }
     });
-});
-
-// Optional: Infinite scroll reset
-window.addEventListener('scroll', () => {
-    let scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Reset scroll effect when it reaches a certain threshold
-    if (scrollPos > window.innerHeight * 2) {
-        window.scrollTo(0, 0);
-    }
-}); 
-    
 });

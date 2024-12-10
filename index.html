@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <title>Stoic</title>
-    
-    <!-- Google Fonts: Raleway -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="styles.css" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoic - AI Consulting Agents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="stoic_logo_no_background.png">
 </head>
 <body>
     <div class="parallax-container">
+        <div class="logo-container">
+            <img src="stoic_logo_no_background.png" alt="Stoic Logo" class="logo">
+        </div>
         <div class="content">
-            <div class="title-container">
-                <h1 id="main-title" class="main-title"></h1>
-                <h2 id="subtitle" class="subtitle">AI agents for management consulting</h2>
+            <h1 id="typing-text">Stoic</h1>
+            <div class="wave-text-container">
+                <p class="wave-text">AI agents for PE due diligence</p>
             </div>
         </div>
+        
+        <div class="contact-section">
+            <form action="https://formspree.io/f/mqakobad" method="POST" id="contact-form">
+                <h2>Contact Us</h2>
+                <div id="form-status"></div>
+                <div class="form-group">
+                    <input type="text" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" required placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" required placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" id="submit-button">Send Message</button>
+            </form>
+        </div>
     </div>
-
-    <section class="form-section">
-        <h3>Contact Us</h3>
-        <form action="https://formspree.io/f/mqakobad" method="POST" class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name..." required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="_replyto" placeholder="Your email..." required>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Your message..." rows="4" required></textarea>
-            </div>
-
-            <button type="submit">Send</button>
-        </form>
-    </section>
-
-    <script src="script.js"></script>
 </body>
+<script src="script.js"></script>
 </html>
